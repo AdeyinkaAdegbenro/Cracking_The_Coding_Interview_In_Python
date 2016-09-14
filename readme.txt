@@ -1,0 +1,1 @@
+This project aims to include all the solutions to the the exercises in Cracking the Coding Interview by Gayle Laakmann in Python.
