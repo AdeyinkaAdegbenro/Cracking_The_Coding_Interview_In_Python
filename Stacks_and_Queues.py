@@ -79,18 +79,22 @@ class Set_of_Stacks:
             else:
                 return self.set_of_stacks.popAt(index)			
 
-        
+#--------------------------------------------------------------------------------------------
+    #3.6 Write a program to sort a stack in ascending order. You should not make any assumptions about how the stack is implemented. The following are the only functions that should be used to write this program: push | pop | peek | isEmpty.        
 def sorter(s1,s2,s3):
     #an helper function to the sort() method below
     while not s1.is_empty() :
         if s1.peek() <= s2.peek():
             s2.push(s1.pop())
-    while not s2.is_empty() :
-        if s2.peek() <= s1.peek():
-            s3.push(s2.pop())
-    s2.push(s1.pop())
-    while not s3.is_empty():
-        s2.push(s3.pop())
+        else:
+            while not s2.is_empty() :
+                if s2.peek() <= s1.peek():
+                    s3.push(s2.pop())
+                else:
+                    break
+            s2.push(s1.pop())
+            while not s3.is_empty():
+                s2.push(s3.pop())
     if s1.is_empty():
         return s2
     return sorter(s1,s2,s3)	
@@ -101,8 +105,18 @@ def sort(stack_object):
     s3 = Stack()
     s2.push(s1.pop())
     return sorter(s1,s2,s3)
+    #TEST CASE below \|/
+    '''s = Stack()
+       d = [4,7,9,3,2,0,8,1,5,6]	
+       for i in d:
+           s.push(i)
+	
+       s = sort(s)
+       for i in range(10):
+           print(s.pop())
+    '''
 		
-#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|		
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|		
 #3.5 Implement a MyQueue class which implements a queue using two stacks.
 class MyQueue:
     def __init__(self):
@@ -141,12 +155,5 @@ class Tower_of_Hanoi:
             move_disk(pole1,pole3)
             move_Tower(n-1, pole2,pole1,pole3)
 	
-s = Stack()
-d = [4,7,9,3,2,0,8,1,5,6]	
-for i in d:
-    s.push(i)
-	
-print(s.is_empty())
-for i in range(10):
-    print(s.peek())
+
 	
