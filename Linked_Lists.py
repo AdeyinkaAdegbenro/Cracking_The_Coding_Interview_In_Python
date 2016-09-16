@@ -4,6 +4,7 @@
 
 
 class Node:
+    '''an helper class to the Class UnorderedList, that acts as container for holding the data of the items in the linked list '''
     def __init__(self,init_data):
         self.data = init_data
         self.next = None
@@ -39,8 +40,7 @@ class UnorderedList:
         temp = Node(item)
         temp.set_next(self.head)
         self.head = temp
-        self.adjust_position()
-		
+
     def size(self):
         count = 0
         current = self.head
@@ -58,6 +58,15 @@ class UnorderedList:
             else:
                 current = current.get_next()
         return found
+		
+    def extract(self):
+        #an helper method for exercise 2.4
+        current = self.head
+        n = []
+        while current != None :
+            n.append(current.get_data())
+            current = current.get_next()
+        return n
 	
     def __str__(self):
         current = self.head
@@ -122,5 +131,57 @@ class UnorderedList:
         except:
             print('item does not exist')
 			
+
+    
+			
 	
-	
+#2.4 You have two numbers represented by a linked list, where each node contains a single digit. The digits are stored in reverse order, such that the 1’s digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list.
+#EXAMPLE
+#Input: (3 -> 1 -> 5) + (5 -> 9 -> 2)
+#Output: 8 -> 0 -> 8
+def add_list(l1,l2):
+    a = l1.extract(); b = l2.extract()
+    a = int("".join(list(map(str,a)))) ; b = int("".join(list(map(str, b))))
+    sum_list = list(str(a + b))    #here the sum is converted to a string then a list, 
+    sum_list.reverse()             #then reversed before being added to an empty linked list below
+    L = UnorderedList()
+    for i in sum_list:
+        L.add(i)
+		
+    print(L)
+#comment out the test below to use:
+'''
+if __name__ == "__main__":
+    a = [3,1,5]; b = [5,9,2]
+    l1 = UnorderedList(); l2 = UnorderedList()
+    for i in a:
+        l1.add(i)
+    for i in b:
+        l2.add(i)
+    add_list(l1,l2)'''
+#------------------------------------------------------------------------------------------------------------------
+#2.5 Given a circular linked list, implement an algorithm which returns node at the beginning of the loop.
+#DEFINITION
+#Circular linked list: A (corrupt) linked list in which a node’s next pointer points to an earlier node, so as to make a loop in the linked list.
+#EXAMPLE
+#input: A -> B -> C -> D -> E -> C [the same C as earlier]
+#output: C
+def circular(list_object):
+    current = list_object.head
+    l = []
+    while current != None:
+        if current.get_data() not in l:
+            l.append(current.get_data())
+        else:
+            return current.get_data()
+        current = current.get_next()
+#comment out the test below to use:
+'''
+if __name__ == '__main__':
+    d = ['C','E','D','C','B','A']
+    L = UnorderedList()
+    for i in d:
+        L.add(i)		
+    print(circular(L))	'''
+#------------------------------------------------------------------------------------------------------------------	
+    
