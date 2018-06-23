@@ -6,28 +6,34 @@ class Stack():
     '''the Stack abstract data type'''
     def __init__(self):
         self.items = []
+        self.min_items = []
+	
     #3.2 How would you design a stack which, in addition to push and pop, also has a function min which returns the minimum element? Push, pop and min should all operate in O(1) time
-    def push(self,item):
-        return self.items.append(item)
-		
+    def push(self, item):
+        self.items.append(item)
+        if not self.min_items or item <= self.min():
+            self.min_items.append(item)
+
     def is_empty(self):
         return self.items == []
-		
+
     def peek(self):
-        return self.items[len(self.items)-1]
-		
-		
+        return self.items[len(self.items) - 1]
+
     def pop(self):
-        #returns the most recent addition to the stack  
-        return self.items.pop()
-		
+        # returns the most recent addition to the stack
+        item = self.items.pop()
+        if item == self.min():
+            self.min_items.pop()
+        return item
+
     def size(self):
-        #returns the number of items in the stack
-        return len(self.items) 
-	
+        # returns the number of items in the stack
+        return len(self.items)
+
     def min(self):
-        #returns the minimum item in the stack
-        return min(self.items)
+        # returns the minimum item in the stack
+        return self.min_items[-1]
 		
     def popAt(self,index):
         return self.items.pop(index)
